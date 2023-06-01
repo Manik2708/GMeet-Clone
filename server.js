@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const server = require('http').Server(app)
 const io=require('socket.io')(server);
-const { v4: uuidV4 } = require('uuid') //uuid is for generating unique IDs which we are using as room ID
+const { v4: uuidV4 } = require('uuid') // uuid is to generate unique random ids which we will use as unique room IDs
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
