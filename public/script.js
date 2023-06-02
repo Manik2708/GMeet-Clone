@@ -12,7 +12,10 @@ navigator.mediaDevices.getUserMedia({
     addVideoStream(myVideo,stream);
 })
 
-socket.emit('join-room');
+socket.emit('join-room',ROOM_ID);
+socket.on('connected-user',()=>{
+    console.log("user connected");
+})
 
 const addVideoStream=(video,stream)=>{
     video.srcObject=stream;

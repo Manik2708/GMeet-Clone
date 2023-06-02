@@ -7,15 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GMeet-Clone</title>
     <link rel="stylesheet" href="style.css">
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js" defer></script>
+    <script>
+    const ROOM_ID="<%= roomId %>"
+    </script>
+    <script src="/socket.io/socket.io.js" ></script>
     <!--Defer means it will be loaded last either we can add this script tag at the end of body or as an alternative we can add attribute defer to it-->
 </head>
 
 <body>
     <div id="video-grid">
-
+        
     </div>
+    <script src="script.js" ></script>
 </body>
 
 </html>
