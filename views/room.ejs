@@ -7,19 +7,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GMeet-Clone</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text&display=swap" rel="stylesheet">
     <script>
-    const ROOM_ID="<%= roomId %>"
+        const ROOM_ID = "<%= roomId %>"
     </script>
-    <script src="/socket.io/socket.io.js" ></script>
-   <!--Defer means it will be loaded last either we can add this script tag at the end of body or as an alternative we can add attribute defer to it-->
-   <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <!--Defer means it will be loaded last either we can add this script tag at the end of body or as an alternative we can add attribute defer to it-->
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+
 </head>
 
 <body>
-    <div id="video-grid">
-        
+    <div class="main">
+        <div class="video-section">
+            <div class="video-window">
+                <div id="video-grid">
+
+                </div>
+            </div>
+            <div class="control-window">
+                <div class="date-time">
+
+                </div>
+                <div class="control-block">
+                    <div class="mute">
+
+                    </div>
+                    <div class="video">
+
+                    </div>
+                    <div>
+                        Participants
+                    </div>
+                    <div>
+                        Screen Share
+                    </div>
+                    <div>
+                        Chat
+                    </div>
+                </div>
+                <div class="control-block">
+                    <div>
+                        Leave
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-section">
+            <div class="header">
+                <h5>Chat</h5>
+            </div>
+        </div>
     </div>
-    <script src="script.js" ></script>
+    <script src="date-time.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

@@ -1,16 +1,32 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Wix Madefor Text', sans-serif;
 }
-body{
-    background-color: black;
-}
-#video-grid{
+.main{
     display: flex;
-    justify-content: center;    
+    height: 100vh;
+}
+.video-section{
+    width: 80%;
+    /* background-color: black; */
+    display: flex;
+    flex-direction: column;
+}
+.video-window{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+.chat-section{
+    width: 20%;
+    background-color: blueviolet;
 }
 
 video{
     width: 300px;
     height: 400px;
+    transform: scaleX(-1);
 }
