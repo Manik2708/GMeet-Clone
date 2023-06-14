@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f141c7fb9d.js" crossorigin="anonymous"></script>
     <script>
         const ROOM_ID = "<%= roomId %>"
     </script>
@@ -24,33 +25,35 @@
         <div class="video-section">
             <div class="video-window">
                 <div id="video-grid">
-
                 </div>
             </div>
             <div class="control-window">
                 <div class="date-time">
-
+                    <span></span>
                 </div>
                 <div class="control-block">
-                    <div class="mute">
-
+                    <div class="unmute control-button" onclick="muteUnmute()">
+                        <i class="fa-solid fa-microphone"></i>
                     </div>
-                    <div class="video">
-
+                    <div class="play control-button" onclick="playStop()">
+                        <i class="fa-solid fa-video"></i>
                     </div>
-                    <div>
-                        Participants
+                    <div class="control-button">
+                        <i class="fa-solid fa-users"></i>
                     </div>
-                    <div>
-                        Screen Share
+                    <div class="control-button">
+                        <i class="fa-solid fa-user-plus"></i>
                     </div>
-                    <div>
-                        Chat
+                    <div class="control-button" onclick="startScreenSharing()">
+                        <i class="fa-solid fa-tv"></i>
+                    </div>
+                    <div class="control-button">
+                        <i class="fa-solid fa-message"></i>
                     </div>
                 </div>
                 <div class="control-block">
-                    <div>
-                        Leave
+                    <div class="control-button leave-button">
+                        <i class="fa-solid fa-phone-slash"></i>
                     </div>
                 </div>
             </div>
@@ -58,6 +61,15 @@
         <div class="chat-section">
             <div class="header">
                 <h5>Chat</h5>
+            </div>
+            <div class="chat-window">
+                
+            </div>
+            <div class="message-container">
+                <input type="text" id="chat-message" placeholder="Type message here...">
+                <div class="send-button">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
             </div>
         </div>
     </div>

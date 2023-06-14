@@ -1,4 +1,3 @@
-document.querySelector(".date-time").append(document.createElement('span'));
 
 function clock() {
     var date = new Date();
@@ -18,6 +17,12 @@ function clock() {
                 hrs: hours,
                 suffix: "PM"
             };
+        }
+        else if(hours==12){
+            return{
+                hrs: hours,
+                suffix: "PM"
+            }
         }
         else {
             if (hours >= 0 && hours <= 9) {
