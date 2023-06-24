@@ -34,19 +34,19 @@
                     <span></span>
                 </div>
                 <div class="control-block">
-                    <div class="unmute control-button" onclick="muteUnmute()">
+                    <div class="unmute control-button" onclick="muteUnmute()" title="Microphone">
                         <i class="fa-solid fa-microphone"></i>
                     </div>
-                    <div class="play control-button" onclick="playStop()">
+                    <div class="play control-button" onclick="playStop()" title="Video">
                         <i class="fa-solid fa-video"></i>
                     </div>
-                    <div class="control-button view-participant" data-toggle="modal" data-target="#participantModal">
+                    <div class="control-button view-participant" data-toggle="modal" data-target="#participantModal" title="View Participant">
                         <i class="fa-solid fa-users"></i>
                     </div>
-                    <div class="control-button add-user" data-toggle="modal" data-target="#addUserModal">
+                    <div class="control-button add-user" data-toggle="modal" data-target="#addUserModal" title="Add User">
                         <i class="fa-solid fa-user-plus"></i>
                     </div>
-                    <div class="control-button">
+                    <div class="control-button" title="Screen share">
                         <i class="fa-solid fa-tv"></i>
                     </div>
                     <!-- <div class="control-button">
@@ -54,7 +54,7 @@
                     </div> -->
                 </div>
                 <div class="control-block">
-                    <div class="control-button leave-button">
+                    <div class="control-button leave-button" title="Leave">
                         <i class="fa-solid fa-phone-slash"></i>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                         <input type="email" class="emailInput" placeholder="Enter email ID...">
                         <button type="button" class="btn btn-primary sendEmail">Send</button>
                     </div>
-                    <p>Or you can share this link with others you want in the meeting</p>
+                    <p>Or you can share this room ID with others you want in the meeting</p>
                     <div class="copymessagepannel">
                         <textarea class="copyMessage" cols="50" rows="1" readonly></textarea>
                         <button class="copy" onclick="copyInvite()" data-dismiss="modal"><i

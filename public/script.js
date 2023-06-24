@@ -23,6 +23,11 @@ navigator.mediaDevices.getUserMedia({
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream)
         })
+
+        call.on('close',()=>{
+            console.log('someone left !');
+            video.parentNode.removeChild(video);
+        })
     })
     // This is for already connected user
     socket.on('connected-user', (userId) => {
@@ -31,6 +36,10 @@ navigator.mediaDevices.getUserMedia({
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream);
         })
+
+        call.on('close',()=>{
+            video.parentNode.removeChild(video);
+        })
     })
     // ---------------------------------------------Chat-Section-----------------------------------------------------
     const messageInput = document.querySelector('#chat-message');
@@ -38,7 +47,7 @@ navigator.mediaDevices.getUserMedia({
 
     function sendMessage() {
         if (messageInput.value != "") {
-            socket.emit('send', messageInput.value);
+            socket.emit('send', messageInput.value, socket.id);
             messageInput.value = "";
         }
     }
@@ -53,14 +62,14 @@ navigator.mediaDevices.getUserMedia({
         sendMessage();
     });
 
-    socket.on('userMessage', (usermessage) => {
+    socket.on('userMessage', (usermessage, username) => {
         console.log(usermessage);
         let message = document.createElement('div');
-        // let name = document.createElement('h6');
+        let name = document.createElement('h6');
         let chat = document.createElement('p');
-        // name.innerHTML = username;
+        name.innerHTML = username;
         chat.innerHTML = usermessage;
-        // message.append(name);
+        message.append(name);
         message.append(chat);
         document.querySelector('.chat-window').append(message);
 
@@ -76,42 +85,44 @@ navigator.mediaDevices.getUserMedia({
     viewParticipants.addEventListener('click', () => {
         socket.emit('view-participants');
     });
-    socket.on('participants', (participantIds) => {
+    socket.on('participants', (participantIds, participantNameObj) => {
+        const participantname = new Map(Object.entries(participantNameObj));
         console.log(participantIds);
         for (let i = 0; i < participantIds.length; i++) {
             if (!participantpresent.has(participantIds[i]) || participantpresent.has(participantIds[i]) && !participantpresent.get(participantIds[i])) {
                 const li = document.createElement('li');
-                li.innerHTML = participantIds[i];
+                li.innerHTML = participantname.get(participantIds[i]);
                 participantlist.append(li);
                 participantpresent.set(participantIds[i], true);
             }
         }
     });
 
-    socket.on('disconnected-user',(user)=>{
-        const list=document.querySelectorAll('#participantModal .modal-body ul li');
-        const uid=user;
-        for(let i=0;i<list.length;i++){
-            if(list[i].textContent===uid){
+    socket.on('disconnected-user', (user, participantNameObj) => {
+        const participantname = new Map(Object.entries(participantNameObj));
+        const list = document.querySelectorAll('#participantModal .modal-body ul li');
+        const uid = user;
+        for (let i = 0; i < list.length; i++) {
+            if (list[i].textContent === participantname.get(uid)) {
                 list[i].remove();
                 break;
             }
         }
         participantpresent.delete(user);
-        alert(uid+' left !')
+        alert(participantname.get(uid) + ' left !')
     });
 
     //---------------------------------------------------------------------------------------------------------------
     // ---------------------------------------------Send Invite mail---------------------------------------------------
-    const emailId=document.querySelector('.emailInput').value;
-    const sendemail=document.querySelector('.sendEmail');
-    function sendInvite(){
-        socket.emit('sendInvite',emailId);
+    const emailId = document.querySelector('.emailInput').value;
+    const sendemail = document.querySelector('.sendEmail');
+    function sendInvite() {
+        socket.emit('sendInvite', emailId);
     }
 
-    sendemail.addEventListener('click',()=>{
-        if(emailId!=''){
-            emailId='';
+    sendemail.addEventListener('click', () => {
+        if (emailId != '') {
+            emailId = '';
             sendInvite();
         }
     })
@@ -128,7 +139,7 @@ peer.on('open', id => {
 
 
 
-const addVideoStream = (video, stream) => {
+const addVideoStream = (video, stream, userId) => {
     video.srcObject = stream;
     video.addEventListener('loadedmetadata', () => {
         video.play();
@@ -188,22 +199,24 @@ const playStop = () => {
 }
 
 // -------------------------------------------------Add-User--------------------------------------------------------
-const copyMessage=document.querySelector('.copyMessage');
-const addUser=document.querySelector('.add-user');
+const copyMessage = document.querySelector('.copyMessage');
+const addUser = document.querySelector('.add-user');
 
-addUser.addEventListener('click',()=>{
-    const message='localhost:3000/'+ROOM_ID;
-    copyMessage.innerHTML=message;
+addUser.addEventListener('click', () => {
+    const message = ROOM_ID;
+    copyMessage.innerHTML = message;
 });
 
-function copyInvite(){
+function copyInvite() {
     navigator.clipboard.writeText(copyMessage.value);
     alert('Message copied !');
 }
 
 // -----------------------------------------------------Leave-------------------------------------------------
 
-const leaveButton=document.querySelector('.leave-button');
+const leaveButton = document.querySelector('.leave-button');
 leaveButton.addEventListener('click', () => {
     window.location.href = '/leavewindow';
 });
+
+

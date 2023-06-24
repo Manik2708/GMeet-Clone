@@ -24,6 +24,11 @@
 
 #video-grid{
     overflow: auto;
+    display: flex;
+}
+.videoContainer{
+    display: flex;
+    flex-direction: column;
 }
 
 video{
@@ -95,21 +100,36 @@ video{
     margin: 10px auto;
     padding: 10px auto;
     text-align: center;
-    font-size: 25px;
     color: rgb(32,33,36);
+}
+.header h5{
+    font-size: 25px;
+    font-weight: 600;
 }
 .chat-window{
     flex-grow: 1;
     overflow-y: scroll;
 }
 .chat-window div{
+    display: flex;
+    flex-direction: column;
+    margin: 8px 2px;
+}
+.chat-window div p{
     background-color: #D3F4FF;
     width: 75%;
-    margin: 2px 5px;
+    margin: 0 5px;
     padding: 5px 6px;
     border-radius: 20px;
     overflow-wrap: break-word;
     font-size: 16px; 
+}
+
+.chat-window div h6{
+    font-size: 10px;
+    font-weight: 600;
+    padding: 0 6px;
+    margin: 0 5px;
 }
 .message-container{
     display: flex;
@@ -229,38 +249,40 @@ video{
 /* ----------------------------------------------Leave Window------------------------------------------------- */
 
 .container{
-    margin: 10vh auto;
-    /* background-color: cyan; */
+    width: 35%;
+    background: linear-gradient(45deg, #E3F4F4,#ffffff);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center;
-    height: 30vh;
-    width: 40%;
+    height: 40vh;
+    border-radius: 20px;
+    margin: 60px auto 60px;
+    box-shadow: 5px 5px 5px black;
 }
 .container h5{
     font-size: 40px;
-    font-weight: 500;
+    font-weight: 580;
+    margin: 20px auto;
 }
 
-.buttons{
-    width: 30%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-}
-
-.rejoin{
-    flex: 0.3;
-}
 .home{
-    flex: 0.6;
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 4px auto;
+    width: 40%;
+    padding: 10px 10px;
+    border-radius: 6px;
+    color: black;
+    background-color: #6A82FB;
+    cursor: pointer;
 }
+
 
 .count-down{
-    width: 20%;
+    width: 22%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: 10px;
 }
 
@@ -268,15 +290,117 @@ video{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #0079FF;
+    border: 2.5px solid #6A82FB;
     border-radius: 50%;
     width: 40px;
     height: 40px;
 }
 .count-down div h5{
+    font-size: 18px;
+    font-weight: 580;
     margin: auto;
 }
 .count-down p{
     margin: auto;
     font-size: 18px;
+    font-weight: 580;
+}
+
+
+/* ---------------------------------------------------------Home------------------------------------------------- */
+
+.card{
+    background: linear-gradient(45deg, #E3F4F4,#ffffff);
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    width: 35%;
+    border-radius: 20px;
+    margin: 60px auto 60px;
+    box-shadow: 5px 5px 5px black;
+}
+
+.logo{
+    margin: 3px auto;
+    padding: 10px;
+}
+
+.logo h5{
+    font-family: 'Satisfy', cursive;
+    font-size: 45px;
+}
+
+.tagline{
+    flex-basis: 12vh;
+    margin: 3px auto;
+    font-size: 18px;
+    font-weight: 600;
+}
+.login{
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 4px auto;
+    width: 50%;
+    padding: 10px 10px;
+    border-radius: 6px;
+    color: black;
+    background-color: #6A82FB;
+    cursor: pointer;
+}
+
+/* ---------------------------------------------------------Start------------------------------------------------- */
+
+.start-card{
+    background: linear-gradient(45deg, #E3F4F4,#ffffff);
+    display: flex;
+    flex-direction: column;
+    height: 50vh;
+    width: 35%;
+    border-radius: 20px;
+    margin: 60px auto 60px;
+    box-shadow: 5px 5px 5px black;
+}
+
+.btn{
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 4px auto;
+    width: 50%;
+    padding: 10px 10px;
+    border-radius: 6px;
+    color: black;
+    background-color: #6A82FB;
+    cursor: pointer;
+}
+
+.info{
+    margin: 2px auto;
+    font-size: 14px;
+    
+}
+/* ---------------------------------------------------------Join------------------------------------------------- */
+
+.join-card{
+    background: linear-gradient(45deg, #E3F4F4,#ffffff);
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    width: 35%;
+    border-radius: 20px;
+    margin: 60px auto 60px;
+    box-shadow: 5px 5px 5px black;
+}
+
+.roomid{
+    width: 80%;
+    border: 2px solid #DDE6ED;
+    outline:none;
+    padding: 10px;
+    color: black;
+    font-size: 15px;
+    font-weight: 550;
+    border-radius: 10px;
+    margin: 20px auto 10px;
 }
