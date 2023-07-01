@@ -26,6 +26,16 @@
     <div class="main">
         <div class="video-section">
             <div class="video-window">
+                <div class="whiteboard-screen">
+                    <canvas class="whitespace"></canvas>
+                    <div class="color-palette">
+                        <div class="black color" style="background-color: black;"></div>
+                        <div class="red color" style="background-color: red;"></div>
+                        <div class="green color" style="background-color: green;"></div>
+                        <div class="blue color" style="background-color: blue;"></div>
+                        <div class="eraser" style="font-size:18px; cursor: pointer;"><i class="fa-solid fa-eraser"></i></div>
+                    </div>
+                </div>
                 <div id="video-grid">
                 </div>
             </div>
@@ -49,9 +59,9 @@
                     <div class="control-button Screen-share" title="Screen share">
                         <i class="fa-solid fa-tv"></i>
                     </div>
-                    <!-- <div class="control-button">
-                        <i class="fa-solid fa-message"></i>
-                    </div> -->
+                    <div class="control-button whiteboard" title="Share whiteboard">
+                        <i class="fa-solid fa-chalkboard"></i>
+                    </div>
                 </div>
                 <div class="control-block">
                     <div class="control-button leave-button" title="Leave">
@@ -111,7 +121,7 @@
                 <div class="modal-body adduserbody">
                     <div class="emailpannel">
                         <input type="email" class="emailInput" placeholder="Enter email ID...">
-                        <button type="button" class="btn sendEmail">Send</button>
+                        <button type="button" class="btn btn-send sendEmail">Send</button>
                     </div>
                     <p>Or you can share this room ID with others you want in the meeting</p>
                     <div class="copymessagepannel">

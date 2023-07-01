@@ -40,6 +40,7 @@ video{
     object-fit: cover;
     border-radius: 20px;
     margin: 10px;
+    cursor: zoom-in;
 }
 
 .control-window{
@@ -369,12 +370,16 @@ video{
     font-size: 15px;
     font-weight: 600;
     margin: 4px auto;
-    width: 20%;
+    width: 50%;
     padding: 10px 10px;
     border-radius: 6px;
     color: black;
     background-color: #6A82FB;
     cursor: pointer;
+}
+
+.btn-send{
+    width: 20%;
 }
 
 .info{
@@ -405,4 +410,38 @@ video{
     font-weight: 550;
     border-radius: 10px;
     margin: 20px auto 10px;
+}
+
+/* ------------------------------------------------Whiteboard---------------------------------------------------- */
+.whiteboard-screen{
+    width: 100%;
+    height: 100vh;
+    background-color: #F5F5F5;
+    border: 2px solid black;
+    display: none;
+}
+.whitespace{
+    cursor: crosshair;
+}
+
+.color-palette{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgba(177, 183, 189,0.5);
+    align-items: center;
+    width: 10%;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    margin: 5px;
+    padding: 2px;
+    border-radius: 10px;
+}
+
+.color{
+    width: 18px;
+    height: 18px;
+    border: 0.5px solid black;
+    border-radius: 50%;
+    cursor: pointer;
 }

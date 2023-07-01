@@ -1,8 +1,8 @@
 const socket = io();
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
-myVideo.setAttribute('onclick','zoom(this)');
-myVideo.setAttribute('title','Click to zoom the video');
+myVideo.setAttribute('onclick', 'zoom(this)');
+myVideo.setAttribute('title', 'Click to zoom the video');
 myVideo.muted = true;
 let current;
 let local_stream;
@@ -16,7 +16,7 @@ var peer = new Peer(undefined, {
 let myVideoStream;
 navigator.mediaDevices.getUserMedia({
     video: true,
-    audio: false
+    audio: true
 }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
@@ -25,8 +25,8 @@ navigator.mediaDevices.getUserMedia({
     peer.on('call', call => {
         call.answer(stream);
         const video = document.createElement('video');
-        video.setAttribute('onclick','zoom(this)');
-        video.setAttribute('title','Click to zoom the video')
+        video.setAttribute('onclick', 'zoom(this)');
+        video.setAttribute('title', 'Click to zoom the video')
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream)
             current = call;
@@ -37,8 +37,8 @@ navigator.mediaDevices.getUserMedia({
         const call = peer.call(userId, stream);
         current = call;
         const video = document.createElement('video');
-        video.setAttribute('onclick','zoom(this)');
-        video.setAttribute('title','Click to zoom the video');
+        video.setAttribute('onclick', 'zoom(this)');
+        video.setAttribute('title', 'Click to zoom the video');
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream);
         })
@@ -134,7 +134,128 @@ navigator.mediaDevices.getUserMedia({
         alert('Mail sent! ' + response);
     });
     //--------------------------------------------------------------------------------------------------------------
+
+    // --------------------------------------------------Whiteboard------------------------------------------------
+
+    const whiteboard = document.querySelector('.whiteboard');
+    const whitespace = document.querySelector('.whitespace');
+    const whitespace_screen = document.querySelector('.whiteboard-screen');
+    const eraser = document.querySelector('.eraser');
+    whitespace.width = window.innerWidth;
+    whitespace.height = window.innerHeight;
+    let context = whitespace.getContext("2d");
+    let whiteboardstatus = false;
+    whiteboard.addEventListener('click', () => {
+        
+        if (whiteboardstatus) {
+            whiteboard.style.backgroundColor = "rgb(95, 100, 106)";
+            whiteboard.style.color = "white";
+            whitespace_screen.style.display = 'none';
+            videoGrid.style.display = 'flex';
+            whiteboardstatus = false;
+        }
+        else {
+            socket.emit('start-whiteboard');
+            socket.on('start-whiteboard',()=>{
+                alert('Whiteboard has been shared you can open your whiteboard to contribute');
+            })
+            whiteboard.style.backgroundColor = "#0079FF";
+            whiteboard.style.color = "black";
+            whitespace_screen.style.display = 'block';
+            videoGrid.style.display = 'none';
+            whiteboardstatus = true;
+            
+            let current = {
+                color: 'black',
+                width: 2
+              };
+              
+              let currentPath = null;
+              
+              document.querySelector('.red').addEventListener('click', () => {
+                current.width = 2;
+                current.color = '#CD1818';
+              });
+              
+              document.querySelector('.black').addEventListener('click', () => {
+                current.width = 2;
+                current.color = 'black';
+              });
+              
+              document.querySelector('.blue').addEventListener('click', () => {
+                current.width = 2;
+                current.color = '#525FE1';
+              });
+              
+              document.querySelector('.green').addEventListener('click', () => {
+                current.width = 2;
+                current.color = '#609966';
+              });
+              
+              eraser.addEventListener('click', () => {
+                current.width = 30;
+                current.color = '#F5F5F5';
+              });
+              
+              let x, y;
+              let mouseDown = false;
+              let rect = whitespace.getBoundingClientRect();
+              let offsetX = rect.left;
+              let offsetY = rect.top;
+              let scrollX = document.documentElement.scrollLeft;
+              let scrollY = document.documentElement.scrollTop;
+              
+              whitespace.onmousedown = (e) => {
+                x = e.clientX - offsetX + scrollX;
+                y = e.clientY - offsetY + scrollY;
+                currentPath = {
+                  color: current.color,
+                  width: current.width,
+                  points: [{ x, y }]
+                };
+                mouseDown = true;
+              };
+              
+              whitespace.onmouseup = (e) => {
+                if (mouseDown && currentPath) {
+                  socket.emit('draw', currentPath);
+                  currentPath = null;
+                }
+                mouseDown = false;
+              };
+              
+              socket.on('ondraw', (path) => {
+                drawPath(path);
+              });
+              
+              whitespace.onmousemove = (e) => {
+                if (mouseDown && currentPath) {
+                  x = e.clientX - offsetX + scrollX;
+                  y = e.clientY - offsetY + scrollY;
+                  currentPath.points.push({ x, y });
+                  drawPath(currentPath);
+                }
+              };
+              
+              function drawPath(path) {
+                context.strokeStyle = path.color;
+                context.lineWidth=path.width;
+                context.beginPath();
+                context.moveTo(path.points[0].x, path.points[0].y);
+                for (let i = 1; i < path.points.length; i++) {
+                  context.lineTo(path.points[i].x, path.points[i].y);
+                }
+                context.stroke();
+              }
+              
+            
+
+        }
+
+
+    })
 })
+
 
 peer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id);
@@ -293,14 +414,16 @@ leaveButton.addEventListener('click', () => {
     window.location.href = '/leavewindow';
 });
 
-function zoom(e){
-    if(e.style.height=='200px'){
-        e.style.height='400px';
-        e.style.flex='0 0 50';
+function zoom(e) {
+    if (e.style.height == '200px') {
+        e.style.height = '400px';
+        e.style.flex = '0 0 50';
+        e.style.cursor = 'zoom-out';
     }
-    else{
-        e.style.height='200px';
-        e.style.flex='0 0 10';
+    else {
+        e.style.height = '200px';
+        e.style.flex = '0 0 10';
+        e.style.cursor = 'zoom-in';
     }
 }
 

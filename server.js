@@ -117,6 +117,18 @@ io.on('connection', socket => {
             socket.emit('participants', participant,participantNameObj);
         });
 
+        socket.on('start-whiteboard',()=>{
+            socket.broadcast.to(roomId).emit('start-whiteboard');
+        })
+
+        socket.on('draw',(x,y,color)=>{
+            io.to(roomId).emit('ondraw',x,y,color);
+        })
+
+        socket.on('erase',()=>{
+           io.to(roomId).emit('onerase');
+        })
+
         socket.on('sendInvite', emailId => {
             const transporter = nodemailer.createTransport({
                service: 'gmail',
