@@ -1,7 +1,11 @@
 const socket = io();
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
+myVideo.setAttribute('onclick','zoom(this)');
+myVideo.setAttribute('title','Click to zoom the video');
 myVideo.muted = true;
+let current;
+let local_stream;
 
 var peer = new Peer(undefined, {
     path: '/peerjs',
@@ -12,34 +16,33 @@ var peer = new Peer(undefined, {
 let myVideoStream;
 navigator.mediaDevices.getUserMedia({
     video: true,
-    audio: true
+    audio: false
 }).then(stream => {
     myVideoStream = stream;
     addVideoStream(myVideo, stream);
-    // This is for other user connected
+    local_stream = stream;
+    // This is for other user connected (3-2-1)
     peer.on('call', call => {
         call.answer(stream);
         const video = document.createElement('video');
+        video.setAttribute('onclick','zoom(this)');
+        video.setAttribute('title','Click to zoom the video')
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream)
-        })
-
-        call.on('close',()=>{
-            console.log('someone left !');
-            video.parentNode.removeChild(video);
+            current = call;
         })
     })
-    // This is for already connected user
+    // This is for newly connected user (1-2-3)
     socket.on('connected-user', (userId) => {
         const call = peer.call(userId, stream);
+        current = call;
         const video = document.createElement('video');
+        video.setAttribute('onclick','zoom(this)');
+        video.setAttribute('title','Click to zoom the video');
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream);
         })
 
-        call.on('close',()=>{
-            video.parentNode.removeChild(video);
-        })
     })
     // ---------------------------------------------Chat-Section-----------------------------------------------------
     const messageInput = document.querySelector('#chat-message');
@@ -139,13 +142,84 @@ peer.on('open', id => {
 
 
 
-const addVideoStream = (video, stream, userId) => {
+const addVideoStream = (video, stream) => {
     video.srcObject = stream;
     video.addEventListener('loadedmetadata', () => {
         video.play();
     })
     videoGrid.append(video);
 }
+
+//------------------------------------------------Screen-Share-----------------------------------------------------
+let screensharestatus = false;
+let screenStream;
+const screenPeer = new Peer();
+screenPeer.on('open', id => {
+    screenID = id;
+})
+
+const screenshare = document.querySelector('.Screen-share');
+
+function startScreenShare() {
+    if (screensharestatus) {
+        return;
+    }
+    navigator.mediaDevices.getDisplayMedia({
+
+        audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+        },
+        video: {
+            cursor: "always"
+        },
+    }).then((stream) => {
+        screenStream = stream;
+        let videoTrack = stream.getVideoTracks()[0];
+        let sender = current.peerConnection.getSenders().find(s => {
+            return s.track.kind == videoTrack.kind;
+        })
+        sender.replaceTrack(videoTrack);
+        screensharestatus = true;
+        screenshare.style.backgroundColor = "#0079FF";
+        screenshare.style.color = "black";
+        console.log(screensharestatus);
+    }).catch((err) => {
+        console.log(err);
+    })
+}
+
+function stopScreenShare() {
+    if (screensharestatus == false) {
+        return;
+    }
+    let videoTrack = local_stream.getVideoTracks()[0];
+    let sender = current.peerConnection.getSenders().find(s => {
+        return s.track.kind == videoTrack.kind;
+    })
+    sender.replaceTrack(videoTrack);
+
+    screenStream.getTracks().forEach(track => {
+        track.stop();
+    })
+    screensharestatus = false;
+    screenshare.style.backgroundColor = "rgb(95, 100, 106)";
+    screenshare.style.color = "white";
+}
+
+function screenShare() {
+    if (screensharestatus) {
+        stopScreenShare();
+    }
+    else {
+        startScreenShare();
+    }
+}
+
+screenshare.addEventListener('click', (e) => {
+    e.preventDefault();
+    screenShare();
+})
 
 // -----------------------------------------------Audio-settings---------------------------------------------------
 function setUnmute() {
@@ -218,5 +292,17 @@ const leaveButton = document.querySelector('.leave-button');
 leaveButton.addEventListener('click', () => {
     window.location.href = '/leavewindow';
 });
+
+function zoom(e){
+    if(e.style.height=='200px'){
+        e.style.height='400px';
+        e.style.flex='0 0 50';
+    }
+    else{
+        e.style.height='200px';
+        e.style.flex='0 0 10';
+    }
+}
+
 
 
