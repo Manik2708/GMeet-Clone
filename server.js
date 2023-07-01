@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')  // Importing express framework
 const app = express()   // Creating instance/application object of Express application
 const server = require('http').Server(app)  // importing http a built-in module like fs(file-system) module for handling http requests and responses
@@ -10,23 +11,23 @@ const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
 
-passport.serializeUser((user , done) => {
-	done(null , user);
+passport.serializeUser((user, done) => {
+    done(null, user);
 })
-passport.deserializeUser(function(user, done) {
-	done(null, user);
+passport.deserializeUser(function (user, done) {
+    done(null, user);
 });
 let name
 passport.use(new GoogleStrategy({
-	clientID:"744997941369-3a2e77erk3nu318qthh8t1g2dv6c185j.apps.googleusercontent.com", 
-	clientSecret:"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", 
-	callbackURL:"http://localhost:5000/google/callback",
-	passReqToCallback:true
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: process.env.CALLBACKURL,
+    passReqToCallback: true
 },
-function(request, accessToken, refreshToken, profile, done) {
-    name=profile.displayName;
-	return done(null, profile);
-}
+    function (request, accessToken, refreshToken, profile, done) {
+        name = profile.displayName;
+        return done(null, profile);
+    }
 ));
 
 
@@ -40,7 +41,7 @@ var peerPort = 9000;
 
 // Session configuration
 app.use(session({
-    secret: "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",
+    secret: process.env.CLIENT_SECRET,
     resave: false,
     saveUninitialized: false
 }));
@@ -92,7 +93,7 @@ app.get('/meeting', (req, res) => {
     res.redirect(`/${uuidV4()}`)
 })
 
-app.get('/leavewindow', (req,res)=>{
+app.get('/leavewindow', (req, res) => {
     res.render('leavewindow');
 })
 
@@ -102,54 +103,54 @@ app.get('/:room', (req, res) => {
 
 
 let participant = [];
-let participantname=new Map();
+let participantname = new Map();
 io.on('connection', socket => {
     socket.on('join-room', (roomId, userId) => {
         participant.push(socket.id);
-        participantname.set(socket.id,name);
+        participantname.set(socket.id, name);
         socket.join(roomId);
         socket.broadcast.to(roomId).emit('connected-user', userId);
-        socket.on('send', (chat,ID) => {
-            io.to(roomId).emit('userMessage', chat,participantname.get(ID));
+        socket.on('send', (chat, ID) => {
+            io.to(roomId).emit('userMessage', chat, participantname.get(ID));
         })
         socket.on('view-participants', () => {
             let participantNameObj = Object.fromEntries(participantname);
-            socket.emit('participants', participant,participantNameObj);
+            socket.emit('participants', participant, participantNameObj);
         });
 
-        socket.on('start-whiteboard',()=>{
+        socket.on('start-whiteboard', () => {
             socket.broadcast.to(roomId).emit('start-whiteboard');
         })
 
-        socket.on('draw',(x,y,color)=>{
-            io.to(roomId).emit('ondraw',x,y,color);
+        socket.on('draw', (x, y, color) => {
+            io.to(roomId).emit('ondraw', x, y, color);
         })
 
-        socket.on('erase',()=>{
-           io.to(roomId).emit('onerase');
+        socket.on('erase', () => {
+            io.to(roomId).emit('onerase');
         })
 
         socket.on('sendInvite', emailId => {
             const transporter = nodemailer.createTransport({
-               service: 'gmail',
+                service: 'gmail',
                 auth: {
-                    user: 'abc@gmail.com',
-                    pass: '123456'
+                    user: process.env.USER,
+                    pass: process.env.PASS
                 }
             });
 
-            const mailOptions={
-                from: "abc@gmail.com", // sender address
+            const mailOptions = {
+                from: process.env.USER, // sender address
                 to: emailId, // list of receivers
-                subject: "sample mail", // Subject line
-                text: "This is a test mail", // plain text body
+                subject: "Meet Invitation", // Subject line
+                text: `You have been invited to join the meet. You can join the meet through this link : https://localhost:3000/${roomId}`, // plain text body
             };
 
-            transporter.sendMail(mailOptions,(error,info)=>{
-                if(error){
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
                     console.log(error);
                 }
-                else{
+                else {
                     console.log('Email sent');
                     socket.emit('emailSent', info.response);
                 }
@@ -160,8 +161,8 @@ io.on('connection', socket => {
             let user = socket.id;
             participant.splice(participant.indexOf(user), 1);
             let participantNameObj = Object.fromEntries(participantname);
-            socket.broadcast.to(roomId).emit('disconnected-user', socket.id,participantNameObj);
-            name=participantname.get(user);
+            socket.broadcast.to(roomId).emit('disconnected-user', socket.id, participantNameObj);
+            name = participantname.get(user);
             participantname.delete(user);
         })
 
