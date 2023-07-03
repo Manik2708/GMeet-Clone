@@ -37,7 +37,6 @@ var peerExpress = require('express');
 var peerApp = peerExpress();
 var peerServer = require('http').createServer(peerApp);
 var options = { debug: true }
-var peerPort = 443;
 
 // Session configuration
 app.use(session({
@@ -170,4 +169,4 @@ io.on('connection', socket => {
 })
 
 server.listen(5000 || process.env.PORT)
-peerServer.listen(peerPort);
+peerServer.listen(9000 || process.env.PORT1);
