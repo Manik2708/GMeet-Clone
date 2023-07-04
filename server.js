@@ -54,49 +54,49 @@ app.use(passport.session());
 
 peerApp.use('/peerjs', ExpressPeerServer(peerServer, options));
 
-app.get('/start', (req, res) => {
+app.get('https://convoconnect.onrender.com/start', (req, res) => {
     res.render('start');
 });
 
-app.get('/join', (req, res) => {
+app.get('https://convoconnect.onrender.com/join', (req, res) => {
     res.render('join');
 });
 
-app.get('/', (req, res) => {
+app.get('https://convoconnect.onrender.com/', (req, res) => {
     res.render('home');
 });
 
 // Auth
-app.get('/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
+app.get('https://convoconnect.onrender.com/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 
 // Auth Callback
-app.get('/google/callback', passport.authenticate('google', {
+app.get('https://convoconnect.onrender.com/google/callback', passport.authenticate('google', {
     successRedirect: '/google/callback/success',
     failureRedirect: '/google/callback/failure'
 }));
 
 // Success
-app.get('/google/callback/success', (req, res) => {
+app.get('https://convoconnect.onrender.com/google/callback/success', (req, res) => {
     if (!req.user)
         return res.redirect('/google/callback/failure');
     res.render('start');
 });
 
 // Failure
-app.get('/google/callback/failure', (req, res) => {
+app.get('https://convoconnect.onrender.com/google/callback/failure', (req, res) => {
     res.send("Error");
 });
 
 
-app.get('/meeting', (req, res) => {
+app.get('https://convoconnect.onrender.com/meeting', (req, res) => {
     res.redirect(`/${uuidV4()}`)
 })
 
-app.get('/leavewindow', (req, res) => {
+app.get('https://convoconnect.onrender.com/leavewindow', (req, res) => {
     res.render('leavewindow');
 })
 
-app.get('/:room', (req, res) => {
+app.get('https://convoconnect.onrender.com/:room', (req, res) => {
     res.render('room', { roomId: req.params.room })
 })
 
@@ -142,7 +142,7 @@ io.on('connection', socket => {
                 from: process.env.USER, // sender address
                 to: emailId, // list of receivers
                 subject: "Meet Invitation", // Subject line
-                text: `You have been invited to join the meet. You can join the meet through this link : https://localhost:3000/${roomId}`, // plain text body
+                text: `You have been invited to join the meet. You can join the meet through this link : https://convoconnect.onrender.com/${roomId}`, // plain text body
             };
 
             transporter.sendMail(mailOptions, (error, info) => {
