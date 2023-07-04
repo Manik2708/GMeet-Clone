@@ -173,4 +173,4 @@ io.on('connection', socket => {
 })
 
 server.listen(5000 || process.env.PORT)
-peerServer.listen(9000 || process.env.PORT1);
+peerServer.listen(443);

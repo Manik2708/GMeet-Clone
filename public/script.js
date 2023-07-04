@@ -9,8 +9,8 @@ let local_stream;
 
 var peer = new Peer(undefined, {
     path: '/peerjs',
-    host: 'https://convoconnect.onrender.com/',
-    port: '9000' || process.env.PORT1
+    host: '/',
+    port: '443'
 })
 
 let myVideoStream;
