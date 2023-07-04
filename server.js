@@ -54,11 +54,11 @@ app.use(passport.session());
 
 peerApp.use('/peerjs', ExpressPeerServer(peerServer, options));
 
-app.get('https://convoconnect.onrender.com/start', (req, res) => {
+app.get('/start', (req, res) => {
     res.render('start');
 });
 
-app.get('https://convoconnect.onrender.com/join', (req, res) => {
+app.get('/join', (req, res) => {
     res.render('join');
 });
 
