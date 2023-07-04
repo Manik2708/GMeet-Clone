@@ -25,7 +25,7 @@
     "uuid": "^9.0.0"
   },
   "engines": {
-    "node": ">=14 <15"
+    "node": ">=18 <19"
   },
   "repository": {
     "type": "git",
