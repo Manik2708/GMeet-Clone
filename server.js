@@ -62,7 +62,7 @@ app.get('https://convoconnect.onrender.com/join', (req, res) => {
     res.render('join');
 });
 
-app.get('https://convoconnect.onrender.com/', (req, res) => {
+app.get('/', (req, res) => {
     res.render('home');
 });
 
