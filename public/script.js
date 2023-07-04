@@ -1,4 +1,4 @@
-const socket = io('/');
+const socket = io();
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 myVideo.setAttribute('onclick', 'zoom(this)');
@@ -9,8 +9,8 @@ let local_stream;
 
 var peer = new Peer(undefined, {
     path: '/peerjs',
-    host: 'convoconnect.onrender.com',
-    port: '443'
+    host: '/',
+    port: '9000'
 })
 
 let myVideoStream;
@@ -414,7 +414,7 @@ function copyInvite() {
 
 const leaveButton = document.querySelector('.leave-button');
 leaveButton.addEventListener('click', () => {
-    window.location.href = 'https://convoconnect.onrender.com/leavewindow';
+    window.location.href = '/leavewindow';
 });
 
 function zoom(e) {
