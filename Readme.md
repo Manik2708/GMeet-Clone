@@ -65,6 +65,10 @@ This is Node.js-based video call application that utilizes socket.io and peerjs 
 
 2. Install all packages and project dependencies `npm install`
 
+3. To run the webapp on localhost generate your Google Oauth credentials from [Google Developer Console](https://console.cloud.google.com/ "google developer console") by creating a new project and set the URI to `localhost:5000` and callback URI `localhost:5000/google/callback`
+
+4. Create a .env file and add your Credentials here along with your Gmail ID and Password for Invite Email message
+
 ### Execution
 
 * Start the server `npm start` or `nodemon server.js`<br>
