@@ -13,18 +13,18 @@
 <hr>
 
 
-### [Video Demonstration of Web Application]()
+## [Video Demonstration of Web Application]()
 <hr>
 
 
-### Introduction
+## Introduction
 <hr>
 
 This is Node.js-based video call application that utilizes socket.io and peerjs libraries to establish peer-to-peer connections. It provides video-calling and real time chat functionality. Additionally, it offers features such as screen sharing and whiteboard sharing.
 <hr>
 
 
-### Key Features & Specialities
+## Key Features & Specialities
 <hr>
 * Group video and audio call
 * Real time chat
@@ -39,17 +39,17 @@ This is Node.js-based video call application that utilizes socket.io and peerjs 
 * Easy to use UI
 
 
-### Techstacks
+## Techstacks
 <hr>
 
-#### Techstacks used
+### Techstacks used
 * Node.js
 * HTML
 * CSS
 * Bootstrap
 * Javascript
 
-#### Libraries used
+### Libraries used
 
 * Socket.io
 * Express
@@ -59,18 +59,18 @@ This is Node.js-based video call application that utilizes socket.io and peerjs 
 * dotenv
 * uuid
 
-#### Installation
+### Installation
 
 1. Clone the repository `git clone https://github.com/Maharsh04/GMeet-Clone`
 
 2. Install all packages and project dependencies `npm install`
 
-#### Execution
+### Execution
 
 * Start the server `npm start` or `nodemon server.js`<br>
 
 
-### Web Application Snippets
+## Web Application Snippets
 <hr>
 
 1. Google Authentication<br>
@@ -118,6 +118,6 @@ NOTE: Video of participant were kept off for security reasons<br>
 ![Leave](./WebApp/leave.png)<br>
 
 
->Made by Maharsh Raval
+>Made by Maharsh Raval <br>
 >Happy Coding !!
 
