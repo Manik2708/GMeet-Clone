@@ -1,4 +1,4 @@
-const socket = io('https://convoconnect.onrender.com/');
+const socket = io();
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 myVideo.setAttribute('onclick', 'zoom(this)');
