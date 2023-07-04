@@ -156,12 +156,16 @@ io.on('connection', socket => {
             })
         });
 
+        
+
         socket.on('disconnect', () => {
             let user = socket.id;
-            participant.splice(participant.indexOf(user), 1);
+            let leavingParticipant=participant.indexOf(user)+participant.length+1;
+            console.log(leavingParticipant);
             let participantNameObj = Object.fromEntries(participantname);
-            socket.broadcast.to(roomId).emit('disconnected-user', socket.id, participantNameObj);
+            socket.broadcast.to(roomId).emit('disconnected-user', socket.id, participantNameObj,leavingParticipant);
             name = participantname.get(user);
+            participant.splice(participant.indexOf(user), 1);
             participantname.delete(user);
         })
 

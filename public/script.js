@@ -101,7 +101,7 @@ navigator.mediaDevices.getUserMedia({
         }
     });
 
-    socket.on('disconnected-user', (user, participantNameObj) => {
+    socket.on('disconnected-user', (user, participantNameObj,leaveid) => {
         const participantname = new Map(Object.entries(participantNameObj));
         const list = document.querySelectorAll('#participantModal .modal-body ul li');
         const uid = user;
@@ -113,6 +113,9 @@ navigator.mediaDevices.getUserMedia({
         }
         participantpresent.delete(user);
         alert(participantname.get(uid) + ' left !')
+        let videoElement=document.querySelector(`#video-grid > video:nth-child(${leaveid})`);
+        videoElement.remove();
+        
     });
 
     //---------------------------------------------------------------------------------------------------------------
@@ -146,7 +149,7 @@ navigator.mediaDevices.getUserMedia({
     let context = whitespace.getContext("2d");
     let whiteboardstatus = false;
     whiteboard.addEventListener('click', () => {
-        
+
         if (whiteboardstatus) {
             whiteboard.style.backgroundColor = "rgb(95, 100, 106)";
             whiteboard.style.color = "white";
@@ -156,7 +159,7 @@ navigator.mediaDevices.getUserMedia({
         }
         else {
             socket.emit('start-whiteboard');
-            socket.on('start-whiteboard',()=>{
+            socket.on('start-whiteboard', () => {
                 alert('Whiteboard has been shared you can open your whiteboard to contribute');
             })
             whiteboard.style.backgroundColor = "#0079FF";
@@ -164,91 +167,91 @@ navigator.mediaDevices.getUserMedia({
             whitespace_screen.style.display = 'block';
             videoGrid.style.display = 'none';
             whiteboardstatus = true;
-            
+
             let current = {
                 color: 'black',
                 width: 2
-              };
-              
-              let currentPath = null;
-              
-              document.querySelector('.red').addEventListener('click', () => {
+            };
+
+            let currentPath = null;
+
+            document.querySelector('.red').addEventListener('click', () => {
                 current.width = 2;
                 current.color = '#CD1818';
-              });
-              
-              document.querySelector('.black').addEventListener('click', () => {
+            });
+
+            document.querySelector('.black').addEventListener('click', () => {
                 current.width = 2;
                 current.color = 'black';
-              });
-              
-              document.querySelector('.blue').addEventListener('click', () => {
+            });
+
+            document.querySelector('.blue').addEventListener('click', () => {
                 current.width = 2;
                 current.color = '#525FE1';
-              });
-              
-              document.querySelector('.green').addEventListener('click', () => {
+            });
+
+            document.querySelector('.green').addEventListener('click', () => {
                 current.width = 2;
                 current.color = '#609966';
-              });
-              
-              eraser.addEventListener('click', () => {
+            });
+
+            eraser.addEventListener('click', () => {
                 current.width = 30;
                 current.color = '#F5F5F5';
-              });
-              
-              let x, y;
-              let mouseDown = false;
-              let rect = whitespace.getBoundingClientRect();
-              let offsetX = rect.left;
-              let offsetY = rect.top;
-              let scrollX = document.documentElement.scrollLeft;
-              let scrollY = document.documentElement.scrollTop;
-              
-              whitespace.onmousedown = (e) => {
+            });
+
+            let x, y;
+            let mouseDown = false;
+            let rect = whitespace.getBoundingClientRect();
+            let offsetX = rect.left;
+            let offsetY = rect.top;
+            let scrollX = document.documentElement.scrollLeft;
+            let scrollY = document.documentElement.scrollTop;
+
+            whitespace.onmousedown = (e) => {
                 x = e.clientX - offsetX + scrollX;
                 y = e.clientY - offsetY + scrollY;
                 currentPath = {
-                  color: current.color,
-                  width: current.width,
-                  points: [{ x, y }]
+                    color: current.color,
+                    width: current.width,
+                    points: [{ x, y }]
                 };
                 mouseDown = true;
-              };
-              
-              whitespace.onmouseup = (e) => {
+            };
+
+            whitespace.onmouseup = (e) => {
                 if (mouseDown && currentPath) {
-                  socket.emit('draw', currentPath);
-                  currentPath = null;
+                    socket.emit('draw', currentPath);
+                    currentPath = null;
                 }
                 mouseDown = false;
-              };
-              
-              socket.on('ondraw', (path) => {
+            };
+
+            socket.on('ondraw', (path) => {
                 drawPath(path);
-              });
-              
-              whitespace.onmousemove = (e) => {
+            });
+
+            whitespace.onmousemove = (e) => {
                 if (mouseDown && currentPath) {
-                  x = e.clientX - offsetX + scrollX;
-                  y = e.clientY - offsetY + scrollY;
-                  currentPath.points.push({ x, y });
-                  drawPath(currentPath);
+                    x = e.clientX - offsetX + scrollX;
+                    y = e.clientY - offsetY + scrollY;
+                    currentPath.points.push({ x, y });
+                    drawPath(currentPath);
                 }
-              };
-              
-              function drawPath(path) {
+            };
+
+            function drawPath(path) {
                 context.strokeStyle = path.color;
-                context.lineWidth=path.width;
+                context.lineWidth = path.width;
                 context.beginPath();
                 context.moveTo(path.points[0].x, path.points[0].y);
                 for (let i = 1; i < path.points.length; i++) {
-                  context.lineTo(path.points[i].x, path.points[i].y);
+                    context.lineTo(path.points[i].x, path.points[i].y);
                 }
                 context.stroke();
-              }
-              
-            
+            }
+
+
 
         }
 
