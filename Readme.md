@@ -1,5 +1,6 @@
 # ConvoConnect Web Application
------
+<hr>
+
 <details>
 <summary>Contents</summary>
 
@@ -8,19 +9,23 @@
 * [Features & Specialities]()<br>
 * [Techsacks used, installation, execution]()<br>
 * [Snippets of web application]()<br>
-
 </details>
+<hr>
 
----
 
 ### [Video Demonstration of Web Application]()
----
+<hr>
+
+
 ### Introduction
----
-This is Node.js-based video call application that utilizes socket.io and peerjs libraries to establish peer-to-peer connections. It provides video-calling and real time chat functionality. Additionally, it offers features such as screen sharing and whiteboard sharing.<br>
----
+<hr>
+
+This is Node.js-based video call application that utilizes socket.io and peerjs libraries to establish peer-to-peer connections. It provides video-calling and real time chat functionality. Additionally, it offers features such as screen sharing and whiteboard sharing.
+<hr>
+
+
 ### Key Features & Specialities
----
+<hr>
 * Group video and audio call
 * Real time chat
 * Screen share
@@ -31,10 +36,11 @@ This is Node.js-based video call application that utilizes socket.io and peerjs 
 * Sharable whiteboard
 * Dedicated Leave meeting option
 * Zoom facility on video/screen for better experience
-* Easy to use UI<br>
+* Easy to use UI
+
 
 ### Techstacks
----
+<hr>
 
 #### Techstacks used
 * Node.js
@@ -63,31 +69,55 @@ This is Node.js-based video call application that utilizes socket.io and peerjs 
 
 * Start the server `npm start` or `nodemon server.js`<br>
 
+
 ### Web Application Snippets
----
+<hr>
 
 1. Google Authentication<br>
+
 ![google-authentication](./WebApp/google-authenticate.png)<br>
+
 2. After google authentication user can either choose to join a new meeting or join an existing meeting either through invite mail or by entering the meeting-room ID<br>
+
 ![Start-page](./WebApp/start-page.png)<br>
+
 ![Join-page](./WebApp/join-page.png)<br>
+
 3. Meeting room<br>
+
 ![Meeting-room](./WebApp/meeting-room.png)<br>
+
 NOTE: Video of participant were kept off for security reasons<br>
+
 4. Chat facility<br>
+
 ![Chat](./WebApp/chat.png)<br>
+
 5. Screen-share feature<br>
+
 ![Screen-share](./WebApp/screen-share.png)<br>
+
 6. Whiteboard<br>
+
 ![Whiteboard](./WebApp/whiteboard.png)<br>
+
 7. Participant-list<br>
+
 ![Participant](./WebApp/participant.png)<br>
+
 8. Invite user window<br>
+
 ![New-user](./WebApp/adduser.png)<br>
+
 9. Alert everyone in the meeting when a participant leaves the meeting<br>
+
 ![leavemeet](./WebApp/leavemeet.png)<br>
+
 10. Leave Meeting page<br>
-![Leave](./WebApp/leave.png)<br><br><br>
-Made by Maharsh Raval
+
+![Leave](./WebApp/leave.png)<br>
+
+
+>Made by Maharsh Raval
 >Happy Coding !!
 
