@@ -67,36 +67,36 @@ app.get('/', (req, res) => {
 });
 
 // Auth
-app.get('https://convoconnect.onrender.com/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
+app.get('/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 
 // Auth Callback
-app.get('https://convoconnect.onrender.com/google/callback', passport.authenticate('google', {
+app.get('/google/callback', passport.authenticate('google', {
     successRedirect: '/google/callback/success',
     failureRedirect: '/google/callback/failure'
 }));
 
 // Success
-app.get('https://convoconnect.onrender.com/google/callback/success', (req, res) => {
+app.get('/google/callback/success', (req, res) => {
     if (!req.user)
         return res.redirect('/google/callback/failure');
     res.render('start');
 });
 
 // Failure
-app.get('https://convoconnect.onrender.com/google/callback/failure', (req, res) => {
+app.get('/google/callback/failure', (req, res) => {
     res.send("Error");
 });
 
 
-app.get('https://convoconnect.onrender.com/meeting', (req, res) => {
+app.get('/meeting', (req, res) => {
     res.redirect(`/${uuidV4()}`)
 })
 
-app.get('https://convoconnect.onrender.com/leavewindow', (req, res) => {
+app.get('/leavewindow', (req, res) => {
     res.render('leavewindow');
 })
 
-app.get('https://convoconnect.onrender.com/:room', (req, res) => {
+app.get('/:room', (req, res) => {
     res.render('room', { roomId: req.params.room })
 })
 
