@@ -1,5 +1,5 @@
 # ConvoConnect Web Application
-***
+-----
 <details>
 <summary>Contents</summary>
 
@@ -8,7 +8,9 @@
 * [Features & Specialities]()<br>
 * [Techsacks used, installation, execution]()<br>
 * [Snippets of web application]()<br>
+
 </details>
+
 ---
 
 ### [Video Demonstration of Web Application]()
