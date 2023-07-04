@@ -24,6 +24,9 @@
     "socket.io-client": "^4.6.2",
     "uuid": "^9.0.0"
   },
+  "engines": {
+    "node": ">=14 <15"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Maharsh04/https---github.com-HimanshuTembhe-Gmeet_clone.git"
