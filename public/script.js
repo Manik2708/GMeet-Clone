@@ -9,7 +9,7 @@ let local_stream;
 
 var peer = new Peer(undefined, {
     path: '/peerjs',
-    host: '/',
+    host: 'https://convoconnect.onrender.com/',
     port: '9000' || process.env.PORT1
 })
 
