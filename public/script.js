@@ -9,8 +9,8 @@ let local_stream;
 
 var peer = new Peer(undefined, {
     path: '/peerjs',
-    host: '/',
-    port: '443'
+    host: 'localhost',
+    port: '9000'
 })
 
 let myVideoStream;
