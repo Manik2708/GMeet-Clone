@@ -1,7 +1,8 @@
-## ConvoConnect Web Application
----
+# ConvoConnect Web Application
+***
 <details>
 <summary>Contents</summary>
+
 * [Video Demonstation of Web Application]() <br>
 * [Introduction]()<br>
 * [Features & Specialities]()<br>
