@@ -36,7 +36,7 @@ var ExpressPeerServer = require('peer').ExpressPeerServer;
 var peerExpress = require('express');
 var peerApp = peerExpress();
 var peerServer = require('http').createServer(peerApp);
-var options = { debug: true }
+var options = { debug: true, allow_discovery: true };
 
 // Session configuration
 app.use(session({
