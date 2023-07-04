@@ -1,5 +1,5 @@
 # ConvoConnect Web Application
-<hr>
+
 
 <details>
 <summary>Contents</summary>
@@ -10,22 +10,22 @@
 * [Techsacks used, installation, execution]()<br>
 * [Snippets of web application]()<br>
 </details>
-<hr>
+
 
 
 ## [Video Demonstration of Web Application]()
-<hr>
+
 
 
 ## Introduction
-<hr>
+
 
 This is Node.js-based video call application that utilizes socket.io and peerjs libraries to establish peer-to-peer connections. It provides video-calling and real time chat functionality. Additionally, it offers features such as screen sharing and whiteboard sharing.
-<hr>
+
 
 
 ## Key Features & Specialities
-<hr>
+
 * Group video and audio call
 * Real time chat
 * Screen share
@@ -40,7 +40,7 @@ This is Node.js-based video call application that utilizes socket.io and peerjs 
 
 
 ## Techstacks
-<hr>
+
 
 ### Techstacks used
 * Node.js
@@ -71,7 +71,7 @@ This is Node.js-based video call application that utilizes socket.io and peerjs 
 
 
 ## Web Application Snippets
-<hr>
+
 
 1. Google Authentication<br>
 
