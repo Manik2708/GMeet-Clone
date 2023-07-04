@@ -414,7 +414,7 @@ function copyInvite() {
 
 const leaveButton = document.querySelector('.leave-button');
 leaveButton.addEventListener('click', () => {
-    window.location.href = '/leavewindow';
+    window.location.href = 'https://convoconnect.onrender.com/leavewindow';
 });
 
 function zoom(e) {
