@@ -4,27 +4,27 @@
 <details>
 <summary>Contents</summary>
 
-* [Video Demonstation of Web Application](#video-demonstration-of-web-applicationvideo-demo) <br>
-* [Introduction](#introductionintro)<br>
-* [Features & Specialities](#key-features--specialitieskey-features)<br>
-* [Techsacks used, installation, execution](#techstackstechstacks)<br>
-* [Snippets of web application](#web-application-snippetssnippets)<br>
+* [Video Demonstation of Web Application](#video-demonstration-of-web-application) <br>
+* [Introduction](#introduction)<br>
+* [Features & Specialities](#key-features--specialities)<br>
+* [Techsacks used, installation, execution](#techstacks)<br>
+* [Snippets of web application](#web-application-snippets)<br>
 </details>
 
 
 
-## [Video Demonstration of Web Application](https://drive.google.com/drive/folders/1t--oCSoHhFzSwfYYDO5vd_6Iu5a8QUBO?usp=sharing "Video Demonstration"){#Video-Demo}
+## [Video Demonstration of Web Application](https://drive.google.com/drive/folders/1t--oCSoHhFzSwfYYDO5vd_6Iu5a8QUBO?usp=sharing "Video Demonstration")
 
 
 
-## Introduction{#intro}
+## Introduction
 
 
 This is Node.js-based video call application that utilizes socket.io and peerjs libraries to establish peer-to-peer connections. It provides video-calling and real time chat functionality. Additionally, it offers features such as screen sharing and whiteboard sharing.
 
 
 
-## Key Features & Specialities{#key-features}
+## Key Features & Specialities
 
 * Group video and audio call
 * Real time chat
@@ -39,7 +39,7 @@ This is Node.js-based video call application that utilizes socket.io and peerjs 
 * Easy to use UI
 
 
-## Techstacks{#techstacks}
+## Techstacks
 
 
 ### Techstacks used
@@ -74,7 +74,7 @@ This is Node.js-based video call application that utilizes socket.io and peerjs 
 * Start the server `npm start` or `nodemon server.js`<br>
 
 
-## Web Application Snippets{#snippets}
+## Web Application Snippets
 
 
 1. Google Authentication<br>
