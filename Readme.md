@@ -122,6 +122,6 @@ NOTE: Video of participant were kept off for security reasons<br>
 ![Leave](./WebApp/leave.png)<br>
 
 
->Made by Maharsh Raval <br>
+
 >Happy Coding !!
 
