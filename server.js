@@ -87,7 +87,6 @@ app.get('/google/callback/failure', (req, res) => {
     res.send("Error");
 });
 
-
 app.get('/meeting', (req, res) => {
     res.redirect(`/${uuidV4()}`)
 })
@@ -100,15 +99,31 @@ app.get('/:room', (req, res) => {
     res.render('room', { roomId: req.params.room })
 })
 
+class AttendanceRecord{
+    constructor(name,id,time,leavingTime){
+        this.name = name
+        this.id = id
+        this.time = time
+        this.leavingTime = leavingTime
+    }
+}
 
 let participant = [];
 let participantname = new Map();
+let attendancerecord = new Map();
 io.on('connection', socket => {
     socket.on('join-room', (roomId, userId) => {
         participant.push(socket.id);
         participantname.set(socket.id, name);
         socket.join(roomId);
         socket.broadcast.to(roomId).emit('connected-user', userId);
+        socket.on('mark-attendance', ()=>{
+            let attendance = new AttendanceRecord(participantname.get(socket.id),userId,new Date())
+            attendancerecord.set(roomId,attendance)
+        })
+        socket.on('get-attendance', (room)=>{
+            io.to(socket.id).emit('recieve-attendance',attendancerecord.get(room))
+        })
         socket.on('send', (chat, ID) => {
             io.to(roomId).emit('userMessage', chat, participantname.get(ID));
         })

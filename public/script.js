@@ -262,6 +262,7 @@ navigator.mediaDevices.getUserMedia({
 
 peer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id);
+    socket.emit('mark-attendance');
 })
 
 
